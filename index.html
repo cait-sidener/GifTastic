@@ -13,12 +13,12 @@
         <!-- Rendered buttons will get dumped here  -->
         <div id="buttons-view"></div>
 
-        <form id="gif-form">
-            <label for="gif-input">Add a Doggo</label>
-            <input type="text" id="gif-input"><br>
+        <form id="doggo-form">
+            <label for="doggo-input">Add a Doggo</label>
+            <input type="text" id="doggo-input"><br>
 
             <!-- Button triggers new pupper to be added -->
-            <input id="add-gif" type="submit" value="Submit">
+            <input id="add-doggo" type="submit" value="Submit">
         </form>
 
         <!-- Doggos will get dumped Here -->
@@ -27,77 +27,89 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script type="text/javascript">
             // Initial array of puppers
-            var topics = ["boston terrier", "french bulldog", "great dane"];
+            var doggos = ["Boston Terrier", "French Bulldog", "Great Dane"];
 
-            function displayGif() {
-                var topic = $(this).attr("data-name");
+            function displayDoggo() {
+                var doggo = $(this).attr("data-name");
                 var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=C5VseF8HAlgtIxjK2vBCvoMz4raFB6rW&q=" +
-                    topic + "&limit=25&offset=0&rating=Y&lang=en";
+                    doggo + "&limit=25&offset=0&rating=Y&lang=en";
 
                 // Creates AJAX call for the specific doggo button being clicked
                 $.ajax({
                     url: queryURL,
                     method: "GET"
                 }).then(function (response) {
-                    console.log(response.data.source);
+                    console.log(response);
 
 
-                    // Creates a div to hold the dogs
-                    var dogElements = $("<div>");
-                    // Retrieves the Rating Data
-                    var rating = "Rated: " + response.data.rating;
-                    // Creates an element to have the rating displayed
-                    var displayRating = dogElements.html("<h3>" + rating + "</h3>");
-                    // Displays the rating
-                    $("#doggo-view").append(displayRating);
-                    
-                
+                    var results = response.data;
 
-                    $("#doggo-view").prepend(dogElements);
+                    for (var i = 0; i < results.length; i++) {
+
+
+                        // Make a div with jQuery and store it
+                        var doggoDiv = $("<div>");
+                        // Make a paragraph tag with jQuery and store it
+                        var p = $("<p>");
+
+                        // Set the inner text of the paragraph to the rating of the image in results[i].
+                        p.text("Rating: " + results[i].rating);
+
+                        // Make an image tag with jQuery and store it in a variable named doggoImage.
+                        var doggoImage = $("<img>");
+
+                        // Set the image's src to results[i]'s fixed_height.url.
+                        doggoImage.attr("src", results[i].images.fixed_height.url);
+
+                        // Append the p variable to the animalDiv variable.
+                        doggoDiv.append(p);
+
+                        // Append the animalImage variable to the animalDiv variable.
+                        doggoDiv.append(doggoImage);
+
+                        // Prepend the doggoDiv variable to the element with an id of gifs-appear-here.
+                        $("#gifs-appear-here").prepend(doggoDiv);
+                    }
 
                 });
-
-
-            }
+            };
+            displayDoggo();
 
             // Function for displaying movie data
             function renderButtons() {
 
-                // Deletes the movies prior to adding new movies
-                // (this is necessary otherwise you will have repeat buttons)
+                // Deletes the doggos prior to adding new doggos
                 $("#buttons-view").empty();
-                // Loops through the array of movies
-                for (var i = 0; i < movies.length; i++) {
+                // Loops through the array of doggos
+                for (var i = 0; i < doggos.length; i++) {
 
-                    // Then dynamicaly generates buttons for each movie in the array
-                    // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
+                    // Then dynamicaly generates buttons for each doggo in the array
+                    // This code $("<button>") is all jQuery needs to create the beginning and end tag.
                     var a = $("<button>");
-                    // Adds a class of movie to our button
-                    a.addClass("movie");
+                    // Adds a class of doggos to our button
+                    a.addClass("doggos");
                     // Added a data-attribute
-                    a.attr("data-name", movies[i]);
+                    a.attr("data-name", doggos[i]);
                     // Provided the initial button text
-                    a.text(movies[i]);
+                    a.text(doggos[i]);
                     // Added the button to the buttons-view div
                     $("#buttons-view").append(a);
                 }
             }
 
-            // This function handles events where the add movie button is clicked
-            $("#add-movie").on("click", function (event) {
+            // This function handles events where the add doggo button is clicked
+            $("#add-doggo").on("click", function (event) {
                 event.preventDefault();
                 // This line of code will grab the input from the textbox
-                var movie = $("#movie-input").val().trim();
+                var doggo = $("#doggo-input").val().trim();
 
                 // The movie from the textbox is then added to our array
-                movies.push(movie);
+                doggos.push(doggo);
 
-                // Calling renderButtons which handles the processing of our movie array
+                // Calling renderButtons which handles the processing of our doggo array
                 renderButtons();
             });
 
-            // Adding click event listeners to all elements with a class of "movie"
-            $(document).on("click", ".movie", displayMovieInfo);
 
             // Calling the renderButtons function to display the intial buttons
             renderButtons();
@@ -106,4 +118,3 @@
 </body>
 
 </html>
-}
