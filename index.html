@@ -2,11 +2,14 @@
 <html lang="en">
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Barrio" rel="stylesheet">
     <meta charset="utf-8">
     <title>GifTastic</title>
 </head>
 
-<body>
+<body style="background-image: url('css/abstract-1667194_1920.jpg');">
 
     <div class="container">
 
@@ -16,28 +19,28 @@
         <form id="doggo-form">
             <label for="doggo-input">Add a Doggo</label>
             <input type="text" id="doggo-input"><br>
-
+            <br />
             <!-- Button triggers new pupper to be added -->
             <input id="add-doggo" type="submit" value="Submit">
+            <br>
         </form>
 
         <!-- Doggos will get dumped Here -->
         <div id="doggo-view"></div>
     </div>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script type="text/javascript">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
 
-            $(document).ready(function(){
-                
             // Initial array of puppers
-            var doggos = ["Boston Terrier", "French Bulldog", "Great Dane"];
+            var doggos = ["Boston Terrier", "French Bulldog", "Great Dane", "Dalmation", "Pitbull", "Chihuaha", "Poodle", "German Shepard"];
 
             function displayDoggo() {
                 var doggo = $(this).attr("data-name");
                 var queryURL = "https://api.giphy.com/v1/gifs/search?" +
                     "api_key=C5VseF8HAlgtIxjK2vBCvoMz4raFB6rW&" +
-                    "q=" + doggo + "&limit=25&offset=0&rating=Y&lang=en";
+                    "q=" + doggo + "&limit=25&offset=0&rating=PG&lang=en";
 
                 // Creates AJAX call for the specific doggo button being clicked
                 $.ajax({
@@ -56,6 +59,7 @@
                         var doggoDiv = $("<div>");
                         // Make a paragraph tag with jQuery and store it
                         var p = $("<p>");
+                                p.addClass("rating");
 
                         // Set the inner text of the paragraph to the rating of the image in results[i].
                         p.text("Rating: " + results[i].rating);
@@ -78,7 +82,6 @@
 
                 });
             };
-            displayDoggo();
 
             // Function for displaying movie data
             function renderButtons() {
@@ -92,7 +95,7 @@
                     // This code $("<button>") is all jQuery needs to create the beginning and end tag.
                     var a = $("<button>");
                     // Adds a class of doggos to our button
-                    a.addClass("doggos");
+                    a.addClass("doggo-btn");
                     // Added a data-attribute
                     a.attr("data-name", doggos[i]);
                     // Provided the initial button text
@@ -108,18 +111,22 @@
                 // This line of code will grab the input from the textbox
                 var doggo = $("#doggo-input").val().trim();
 
-                // The movie from the textbox is then added to our array
+                // The dog from the textbox is then added to our array
                 doggos.push(doggo);
 
                 // Calling renderButtons which handles the processing of our doggo array
                 renderButtons();
             });
 
+                // Adding a click event listener to all elements with a class of "doggo-btn"
+                $(document).on("click", ".doggo-btn", displayDoggo);
 
-            // Calling the renderButtons function to display the intial buttons
-            renderButtons();
+                // Calling the renderButtons function to display the intial buttons
+                renderButtons();
+
+            
         })
-        </script>
+    </script>
 </body>
 
 </html>

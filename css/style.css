@@ -1,0 +1,55 @@
+#add-doggo {
+    background-color: #c0dd66;
+    border-radius: 8px;
+    color: #6a293a;
+    font-family: 'Barrio', cursive;
+    font-size: 1.5em;
+    margin-left: 1%;
+    padding: 1%;
+}
+
+#doggo-form {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#doggo-input {
+    background-color: #dcecaa;
+    color: #6a293a;
+    font-family: 'Barrio', cursive;
+    font-size: 1.3em;
+    padding: 5px;
+}
+
+.doggo-btn {
+    background-color: #bada55;
+    border-radius: 8px;
+    color: #6a293a;
+    font-family: 'Barrio', cursive;
+    font-size: 1.5em;
+    margin-bottom: 1%;
+    margin-right: 1%;
+    padding: 1%;
+}
+
+#doggo-view {
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+   
+}
+
+label {
+    color: #6a293a;
+    font-family: 'Barrio', cursive;
+    font-size: 1.5em;
+    padding: 1%;
+}
+
+.rating {
+    color: #6a293a;
+    font-family: 'Barrio', cursive;
+    font-size: 1.5em;
+    padding: 1%; 
+}
