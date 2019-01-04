@@ -49,7 +49,6 @@
                 }).then(function (response) {
                     console.log(response);
 
-
                     var results = response.data;
 
                     for (var i = 0; i < results.length; i++) {
@@ -68,10 +67,13 @@
                         var doggoImage = $("<img>");
 
                         // Set the image's src to results[i]'s fixed_height.url.
-                        doggoImage.attr("src", results[i].images.fixed_height.url);
+                        doggoImage.attr("src", results[i].images.fixed_height_still.url);
+                        doggoImage.attr("data-url", results[i].images.fixed_height.url);
+                        doggoImage.addClass("doggo-pic");
 
                         // Append the p variable to the animalDiv variable.
                         doggoDiv.append(p);
+
 
                         // Append the animalImage variable to the animalDiv variable.
                         doggoDiv.append(doggoImage);
@@ -124,7 +126,13 @@
                 // Calling the renderButtons function to display the intial buttons
                 renderButtons();
 
-            
+            $(document).on("click", ".doggo-pic", function(){
+                var src = $(this).attr("src");
+                var url = $(this).attr("data-url");
+                $(this).attr("src", url);
+                $(this).attr("data-url", src);
+
+            })
         })
     </script>
 </body>
