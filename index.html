@@ -34,7 +34,9 @@
         $(document).ready(function () {
 
             // Initial array of puppers
-            var doggos = ["Boston Terrier", "French Bulldog", "Great Dane", "Dalmation", "Pitbull", "Chihuaha", "Poodle", "German Shepard"];
+            var doggos = ["Boston Terrier", "French Bulldog", "Great Dane", "Dalmation", "Pitbull", "Chihuaha",
+                "Poodle", "German Shepard"
+            ];
 
             function displayDoggo() {
                 var doggo = $(this).attr("data-name");
@@ -58,7 +60,7 @@
                         var doggoDiv = $("<div>");
                         // Make a paragraph tag with jQuery and store it
                         var p = $("<p>");
-                                p.addClass("rating");
+                        p.addClass("rating");
 
                         // Set the inner text of the paragraph to the rating of the image in results[i].
                         p.text("Rating: " + results[i].rating);
@@ -120,13 +122,13 @@
                 renderButtons();
             });
 
-                // Adding a click event listener to all elements with a class of "doggo-btn"
-                $(document).on("click", ".doggo-btn", displayDoggo);
+            // Adding a click event listener to all elements with a class of "doggo-btn"
+            $(document).on("click", ".doggo-btn", displayDoggo);
 
-                // Calling the renderButtons function to display the intial buttons
-                renderButtons();
+            // Calling the renderButtons function to display the intial buttons
+            renderButtons();
 
-            $(document).on("click", ".doggo-pic", function(){
+            $(document).on("click", ".doggo-pic", function () {
                 var src = $(this).attr("src");
                 var url = $(this).attr("data-url");
                 $(this).attr("src", url);
